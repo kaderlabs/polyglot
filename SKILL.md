@@ -73,6 +73,25 @@ polyglot — sv · 2026-05-26
 2 updated
 ```
 
+## 5 — Check for missing "Use when"
+
+After the language pass, scan every SKILL.md (not just the ones updated) and check whether the `description` field contains "use when" (case-insensitive) or whether a `when_to_use` frontmatter field exists.
+
+If any skills are missing both, append a notice to the report:
+
+```
+──────────────────────────────────────
+⚠  Skills with no "Use when" clause:
+   lint, test, frontend-design
+   These won't auto-activate reliably.
+   Add "Use when" descriptions? (y/n)
+──────────────────────────────────────
+```
+
+If the user answers **y**, draft a `Use when:` clause for each affected skill based on its name and existing description body. Present each as a one-line proposal and ask for confirmation before writing.
+
+Do not add "Use when" clauses to path-based skills (those already have `paths` frontmatter for conditional activation).
+
 </process>
 
 <dry_run>
