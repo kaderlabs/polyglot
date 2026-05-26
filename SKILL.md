@@ -1,6 +1,6 @@
 ---
 name: polyglot
-description: Add multilingual trigger phrases to Claude Code skills so they activate when you write in any language. Use when skills don't trigger because you wrote in a non-English language. Triggers: "polyglot", "add triggers", "localize skills", "skills don't trigger in [language]", "lägg till svenska triggers", "skills triggar inte på svenska", "triggers saknas", "add [language] to skills", "lägger inte till svenska".
+description: Add multilingual trigger phrases to Claude Code skills so they activate when you write in any language. Use when skills don't trigger because you wrote in a non-English language. Triggers: "polyglot", "add triggers", "localize skills", "skills don't trigger in [language]", "add [language] to my skills".
 ---
 
 <objective>
@@ -13,7 +13,7 @@ Language is required. No default.
 - `/polyglot sv` — add Swedish triggers to all skills missing them
 - `/polyglot fr` — French
 - `/polyglot sv --dry-run` — preview without writing
-- `/polyglot sv --skill software-design` — single skill only
+- `/polyglot sv --skill my-skill` — single skill only
 
 If no language is given, ask: "Which language? (e.g. sv, fr, de, es)"
 </invocation>
@@ -23,7 +23,7 @@ If no language is given, ask: "Which language? (e.g. sv, fr, de, es)"
 ## 1 — Locate skills
 
 ```bash
-find ~/.claude/skills ~/.agents/skills ~/ace/skills -name "SKILL.md" 2>/dev/null
+find ~/.claude/skills -name "SKILL.md" 2>/dev/null
 ```
 
 If `--skill <name>` is passed, filter to that skill only.
@@ -35,7 +35,7 @@ For each SKILL.md, read the `description` frontmatter field.
 Language markers:
 - **sv** — `å`, `ä`, `ö`
 - **fr** — `é`, `è`, `à`, `ç`, `ù`
-- **de** — `ü`, `ß` (shared `ö/ä` with sv — require both to confirm de)
+- **de** — `ü`, `ß`
 - **es** — `ñ`, `¿`, `¡`
 - **other** — look for `Also ([lang]):` marker
 
@@ -45,12 +45,13 @@ Skip path-based skills: description consists primarily of glob patterns (`**/`, 
 
 ## 3 — Generate triggers
 
-For each skill needing coverage, understand its domain from the full description. Generate **8–12 trigger phrases** that:
+Count the existing trigger phrases in the description. Generate **the same number** in the target language — no more, no fewer. Match density, don't bloat.
 
+Trigger phrases should:
 - Match how a native speaker naturally asks for this skill
 - Cover both formal and casual registers
 - Stay true to the skill's actual domain
-- Include action verbs ("debugga", "refaktorera") and question fragments ("förstår inte varför", "hur ska jag")
+- Include action verbs and question fragments where natural
 
 Append to description using this pattern:
 ```
@@ -61,16 +62,15 @@ Use the Edit tool. One skill at a time.
 
 ## 4 — Report
 
+Only list skills that were actually updated:
+
 ```
 polyglot — sv · 2026-05-26
 ──────────────────────────────────────
-✓  software-design      +10 triggers
-✓  debug-like-expert    +9 triggers
-✓  deep-research        +8 triggers
-○  intygio-trust-code   skipped (path-based)
-◆  linkedin             already covered
+✓  my-skill      +4 triggers
+✓  other-skill   +6 triggers
 ──────────────────────────────────────
-3 updated · 1 skipped · 1 already covered
+2 updated
 ```
 
 </process>
@@ -79,8 +79,8 @@ polyglot — sv · 2026-05-26
 With `--dry-run`: print proposed additions without writing. Confirm before proceeding.
 
 ```
-[software-design]
-  would add: "designa", "refaktorera", "granskning", "arkitektur", ...
+[my-skill]
+  would add: "phrase1", "phrase2", ...
 
 Proceed? (y/n)
 ```
@@ -88,5 +88,4 @@ Proceed? (y/n)
 
 <idempotency>
 Running polyglot twice is safe. Coverage detection on characters prevents double-adding.
-If triggers were manually edited between runs, presence of target-language characters still signals coverage.
 </idempotency>
