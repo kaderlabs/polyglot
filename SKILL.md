@@ -6,14 +6,16 @@ description: Add multilingual trigger phrases to Claude Code skills so they acti
 <objective>
 Scan your Claude Code skill library and append native-language trigger phrases to any skill whose description only covers English. Skills activate naturally when you think and write in your preferred language — without rewriting the skills themselves.
 
-Default: Swedish (sv). Supports any language.
+Language is required. No default.
 </objective>
 
 <invocation>
-- `/polyglot` — add Swedish triggers to all skills missing them
+- `/polyglot sv` — add Swedish triggers to all skills missing them
 - `/polyglot fr` — French
 - `/polyglot sv --dry-run` — preview without writing
 - `/polyglot sv --skill software-design` — single skill only
+
+If no language is given, ask: "Which language? (e.g. sv, fr, de, es)"
 </invocation>
 
 <process>

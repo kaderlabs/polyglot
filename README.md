@@ -29,7 +29,7 @@ git clone https://github.com/fawzinygren/polyglot ~/.agents/skills/polyglot
 ## Usage
 
 ```
-/polyglot                          # Add Swedish triggers to all skills
+/polyglot sv                       # Add Swedish triggers to all skills
 /polyglot fr                       # French
 /polyglot de                       # German
 /polyglot sv --dry-run             # Preview without writing
