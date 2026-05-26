@@ -30,7 +30,7 @@ git clone https://github.com/kaderlabs/polyglot ~/.claude/skills/polyglot
 /polyglot sv --skill my-skill           # Single skill only
 ```
 
-Language code is required.
+Language codes follow [ISO 639-1](LANGUAGES.md) — the same two-letter standard used everywhere. See [LANGUAGES.md](LANGUAGES.md) for all 184 codes.
 
 ## Language detection
 
