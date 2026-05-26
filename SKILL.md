@@ -1,6 +1,7 @@
 ---
 name: polyglot
-description: Audit and improve Claude Code skill activation. Use this skill when skills don't trigger — adds multilingual trigger phrases for skills missing your language, and flags skills with no activation guidance. Triggers: "polyglot", "localize skills", "skills don't activate", "add triggers", "skills don't trigger in [language]", "add [language] to my skills".
+description: "Audit and improve Claude Code skill activation."
+when_to_use: "Use this skill when skills don't trigger — adds multilingual trigger phrases for skills missing your language, and flags skills with no activation guidance. Triggers: \"polyglot\", \"localize skills\", \"skills don't activate\", \"add triggers\", \"skills don't trigger in [language]\", \"add [language] to my skills\"."
 ---
 
 <objective>
