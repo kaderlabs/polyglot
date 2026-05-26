@@ -30,7 +30,7 @@ If `--skill <name>` is passed, filter to that skill only.
 
 ## 2 — Detect coverage
 
-For each SKILL.md, read the `description` frontmatter field.
+For each SKILL.md, read the `when_to_use` frontmatter field first. Fall back to `description` if `when_to_use` is absent.
 
 Language markers:
 - **sv** — `å`, `ä`, `ö`
@@ -39,13 +39,13 @@ Language markers:
 - **es** — `ñ`, `¿`, `¡`
 - **other** — look for `Also ([lang]):` marker
 
-Skip if target-language characters already present in description.
+Skip if target-language characters already present in the activation field.
 
-Skip path-based skills: description consists primarily of glob patterns (`**/`, `src/`, file extensions). These trigger on file edits, not words — language triggers add noise.
+Skip path-based skills: activation field consists primarily of glob patterns (`**/`, `src/`, file extensions). These trigger on file edits, not words — language triggers add noise.
 
 ## 3 — Generate triggers
 
-Count the existing trigger phrases in the description. Generate **the same number** in the target language — no more, no fewer. Match density, don't bloat.
+Count the existing trigger phrases. Generate **the same number** in the target language — no more, no fewer. Match density, don't bloat.
 
 Trigger phrases should:
 - Match how a native speaker naturally asks for this skill
@@ -53,10 +53,14 @@ Trigger phrases should:
 - Stay true to the skill's actual domain
 - Include action verbs and question fragments where natural
 
-Append to description using this pattern:
+**Write target**: always `when_to_use`. If the skill has no `when_to_use` field, create one. If triggers currently live only in `description`, leave `description` unchanged and add `when_to_use` instead.
+
+Append to `when_to_use` using this pattern:
 ```
-[existing description]. Also: "phrase1", "phrase2", ...
+[existing when_to_use content]. Also: "phrase1", "phrase2", ...
 ```
+
+If creating `when_to_use` from scratch (skill had no activation field), extract any existing "Use when" clause from `description` as the base, then append the new-language triggers.
 
 Use the Edit tool. One skill at a time.
 

@@ -14,7 +14,7 @@ Claude Code skill activation is keyword-based. The model reads each skill's `des
 
 polyglot runs two passes over your skill library:
 
-1. **Language pass** — adds native-language trigger phrases to skills that lack coverage in your language. Trigger density is preserved: if a skill has 4 English triggers, it gets 4 in the target language. Patches are written directly to the `description` frontmatter field. Idempotent. Path-based skills are skipped.
+1. **Language pass** — adds native-language trigger phrases to skills that lack coverage in your language. Trigger density is preserved: if a skill has 4 English triggers, it gets 4 in the target language. Patches are written to the `when_to_use` frontmatter field (the dedicated CC activation field). Idempotent. Path-based skills are skipped.
 
 2. **Activation check** — flags skills with no activation guidance at all, then asks if you want to add it.
 
@@ -42,15 +42,19 @@ Built-in character-set detection for `sv` `fr` `de` `es`. Any other language is 
 
 ## How skill activation actually works
 
-Claude Code's skill system has three conventions for activation guidance — and most skill libraries mix all three:
+Claude Code's skill system has three conventions for activation guidance. They're not equivalent:
 
 | Pattern | Example | Notes |
 |---------|---------|-------|
-| `"Use when: ..."` in `description` | `description: "Use when: \"debug\", \"trace\""` | Common in community skills |
-| `"Use this skill when ..."` in `description` | `description: "Use this skill when the user asks to build..."` | Pattern used by Claude Code's own built-in skills |
-| `when_to_use` frontmatter field | `when_to_use: "When the user asks to..."` | Separate field per spec, rarely used in practice |
+| `when_to_use` frontmatter field | `when_to_use: "When the user asks to..."` | **Canonical.** CC's dedicated activation field — keeps `description` short for autocomplete |
+| `"Use when: ..."` in `description` | `description: "Use when: \"debug\", \"trace\""` | Works but conflates listing text with activation triggers |
+| `"Use this skill when ..."` in `description` | `description: "Use this skill when the user asks to build..."` | Works but same conflation issue |
 
-All three work. None is wrong. The problem is that skills with *no* activation guidance — not even a hint of when they apply — compete poorly against skills that are explicit. polyglot detects and flags these.
+The `when_to_use` field is the correct home for activation triggers. `description` is the one-line listing shown in autocomplete — keep it short. polyglot writes to `when_to_use` and detects coverage in either field.
+
+One subtlety: CC sends skill descriptions using a delta system. Descriptions seen in a recent session are suppressed (bare skill name only); changed descriptions are sent in full. If your `description` is long and gets truncated differently across sessions, the skill perpetually looks "new" and never settles. A short `description` + separate `when_to_use` avoids this entirely.
+
+The problem polyglot solves is that skills with *no* activation guidance — not even a hint of when they apply — compete poorly against skills that are explicit. polyglot detects and flags these.
 
 ## Output
 
