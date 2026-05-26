@@ -1,6 +1,6 @@
 ---
 name: polyglot
-description: Add multilingual trigger phrases to Claude Code skills so they activate when you write in any language. Use when skills don't trigger because you wrote in a non-English language. Triggers: "polyglot", "add triggers", "localize skills", "skills don't trigger in [language]", "add [language] to my skills".
+description: Audit and improve Claude Code skill activation. Use this skill when skills don't trigger — adds multilingual trigger phrases for skills missing your language, and flags skills with no activation guidance. Triggers: "polyglot", "localize skills", "skills don't activate", "add triggers", "skills don't trigger in [language]", "add [language] to my skills".
 ---
 
 <objective>
