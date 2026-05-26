@@ -6,7 +6,7 @@ A Claude Code skill that adds multilingual triggers to your other skills.
 
 Claude Code skill activation is keyword-based — the model reads the `description` field and decides if a skill applies. If your description says `"refactor"` and you write `"refaktorera"`, nothing fires.
 
-Querying session history across 3,271 sessions: skills activated in 6%. Not because the skills were bad. Because the triggers were in English.
+Querying session history across 3,271 sessions: skills activated in 6% of them. Not because the skills were bad. Because the triggers were in English.
 
 The fix isn't rewriting your skills. It's teaching them to recognize you.
 
