@@ -75,7 +75,12 @@ polyglot — sv · 2026-05-26
 
 ## 5 — Check for missing "Use when"
 
-After the language pass, scan every SKILL.md (not just the ones updated) and check whether the `description` field contains "use when" (case-insensitive) or whether a `when_to_use` frontmatter field exists.
+After the language pass, scan every SKILL.md (not just the ones updated) and check whether any of these activation signals exist:
+
+- `description` contains "use when", "use this skill when", or "trigger" (case-insensitive)
+- a `when_to_use` frontmatter field is present
+
+Skills that pass none of these checks lack reliable activation guidance.
 
 If any skills are missing both, append a notice to the report:
 
