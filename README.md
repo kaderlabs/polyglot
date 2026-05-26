@@ -6,7 +6,7 @@ Makes your Claude Code skills activate — in any language.
 
 Claude Code skill activation is keyword-based. The model reads each skill's `description` field at startup and decides whether to invoke it. Two problems consistently suppress activation:
 
-**Language mismatch.** If your skills were authored in English and you work in another language, they won't activate — regardless of how relevant they are. Across 3,271 sessions, skills activated in 6% of them. The skills were correct. The triggers weren't covering the language in use.
+**Language mismatch.** If your skills were authored in English and you work in another language, they won't activate — regardless of how relevant they are. Across 3,271 sessions, skills activated in 6% of them. The triggers weren't covering the language in use.
 
 **Missing activation guidance.** The model needs a clear signal for *when* a skill applies. Without it, even well-written skills get ignored.
 
